@@ -38,15 +38,18 @@ class VisitorChart extends Component
 
 
         $data = [
-            'chart_title' => 'Visitors by Months',
+            'chart_title' => 'Visitors Per Day',
             'report_type' => 'group_by_date',
             'model' => Visit::class,
+
             'group_by_field' => 'created_at',
             'group_by_period' => 'day',
             'chart_type' => 'bar',
-            'chart_color' => '#4e54c8', // Single color string
+            'chart_color' => '78,84,200,0.8',
             'chart_height' => '400px',
         ];
+
+
 
         $chart1 = new LaravelChart($data);
 
