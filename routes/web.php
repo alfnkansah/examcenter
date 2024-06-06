@@ -82,6 +82,7 @@ Route::middleware('auth', 'verified')->group(function () {
             Route::get('/subjects', 'subjects')->name('subjects.index');
             Route::get('/exams-types', 'examsTypes')->name('exams.index');
             Route::get('/exams-category', 'examsCategory')->name('category.index');
+            Route::get('/users-view-all', 'viewUsers')->name('users.index');
 
             Route::post('/update-timezone', 'getUserTimezone')->name('get-user-timezone');
         });

@@ -8,6 +8,7 @@ use App\Models\ExamCategory;
 use App\Models\ExamType;
 use App\Models\Level;
 use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Mockery\Matcher\Subset;
@@ -56,5 +57,12 @@ class AdminPagesController extends Controller
     {
         $categories = ExamCategory::all();
         return view('category.index', compact('categories'));
+    }
+
+    public function viewUsers()
+    {
+        $users = User::where('email', '!=', 'obimpehjohn1@gmail.com')->get();
+        // dd($users);
+        return view('users.index', compact('users'));
     }
 }

@@ -36,8 +36,8 @@
         {{-- <x-dropdown-link route="students.create" label="Add Pasco" /> --}}
     </x-dropdown>
 
-    {{-- <x-dropdown id="users" label="Users" icon="icon-head">
-        <x-dropdown-link route="subjects.store" label="View All" />
-        <x-dropdown-link route="subjects.store" label="Add New" />
-    </x-dropdown> --}}
+    <x-dropdown id="users" label="Admin Users" icon="icon-head">
+        <x-dropdown-link route="users.index" label="View All" />
+        {{-- <x-dropdown-link route="register" label="Add New" /> --}}
+    </x-dropdown>
 </ul>
