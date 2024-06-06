@@ -87,7 +87,7 @@ Route::middleware('auth', 'verified')->group(function () {
         });
 
         Route::controller(ExaminationTypeController::class)->group(function () {
-            Route::get('/exams-types/create', 'create')->name('exams.create');
+            Route::get('/exams-types-create', 'create')->name('exams.create');
             Route::post('/exams-types/store', 'store')->name('exams.store');
             Route::get('/exams/{examType}/edit', 'edit')->name('exams.edit');
             Route::put('/exams/{examType}', 'update')->name('exams.update');
@@ -96,7 +96,7 @@ Route::middleware('auth', 'verified')->group(function () {
         });
 
         Route::controller(ExamCategroyController::class)->group(function () {
-            Route::get('/category-types/create', 'create')->name('category.create');
+            Route::get('/category-types-create', 'create')->name('category.create');
             Route::post('/category-types/store', 'store')->name('category.store');
             Route::get('/category/{examCat}/edit', 'edit')->name('category.edit');
             Route::put('/category/{examCat}', 'update')->name('category.update');
@@ -138,8 +138,8 @@ Route::middleware('auth', 'verified')->group(function () {
         });
 
         Route::controller(AdminQuestionTypeController::class)->group(function () {
-            Route::get('/question-type/view', 'index')->name('question_type');
-            Route::get('/question-type/create', 'create')->name('question_type.create');
+            Route::get('/question-type-view', 'index')->name('question_type');
+            Route::get('/question-type-create', 'create')->name('question_type.create');
             Route::post('/question-type/store', 'store')->name('question_type.store');
             Route::get('/question-type/{QuestionType}/edit', 'edit')->name('question_type.edit');
             Route::put('/question-type/{QuestionType}/update', 'update')->name('question_type.update');
