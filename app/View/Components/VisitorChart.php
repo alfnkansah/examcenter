@@ -23,22 +23,34 @@ class VisitorChart extends Component
      */
     public function render(): View|Closure|string
     {
+        // $data = [
+        //     'chart_title' => 'Visitors by Months',
+        //     'report_type' => 'group_by_date',
+        //     'model' => Visit::class,
+        //     'group_by_field' => 'created_at',
+        //     'group_by_period' => 'month',
+        //     'chart_type' => 'bar',
+        //     'chart_color' => '#4e54c8', // Custom color
+        //     'chart_height' => '400px', // Custom height
+        // ];
+
+        // $chart1 = new LaravelChart($data);
+
+
         $data = [
-            'chart_title' => 'Visitors by months',
+            'chart_title' => 'Visitors by Months',
             'report_type' => 'group_by_date',
             'model' => Visit::class,
             'group_by_field' => 'created_at',
             'group_by_period' => 'day',
-            'chart_type' => 'line',
-            'chart_color' => "red",
-            'chart_height' => "2px"
+            'chart_type' => 'bar',
+            'chart_color' => '#4e54c8', // Single color string
+            'chart_height' => '400px',
         ];
 
         $chart1 = new LaravelChart($data);
 
 
-        return view('components.visitor-chart', compact(
-            'chart1'
-        ));
+        return view('components.visitor-chart', compact('chart1'));
     }
 }
