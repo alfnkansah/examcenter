@@ -11,7 +11,7 @@
         <x-dropdown-link route="exams.create" label="Add Type" />
     </x-dropdown>
 
-    <x-dropdown id="exams_type" label="Exams Categories" icon="icon-book">
+    <x-dropdown id="exams_cate" label="Exams Categories" icon="icon-book">
         <x-dropdown-link route="category.index" label="View All" />
         <x-dropdown-link route="category.create" label="Add Category" />
     </x-dropdown>
@@ -26,8 +26,8 @@
         <x-dropdown-link route="question_type.create" label="Add Type" />
     </x-dropdown>
 
-    <x-dropdown id="resources" label="Resources" icon="icon-layout">
-        <x-dropdown-link route="resources" label="View All" />
+    <x-dropdown id="resource" label="Resources" icon="icon-layout">
+        <x-dropdown-link route="view-resources" label="View All" />
         <x-dropdown-link route="resoures.create" label="Add Pasco" />
     </x-dropdown>
 

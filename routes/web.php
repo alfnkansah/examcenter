@@ -125,11 +125,16 @@ Route::middleware('auth', 'verified')->group(function () {
         });
 
         Route::controller(ResourceController::class)->group(function () {
-            Route::get('/resources', 'index')->name('resources');
+            Route::get('/view_resources', 'index')->name('view-resources');
             Route::get('/resources_create', 'create')->name('resoures.create');
             Route::post('/resources_create', 'storeResource')->name('resoures.store');
             Route::get('/get-subjects', 'getCourses')->name('get-courses');
             Route::get('/get-categories', 'getCategory')->name('get-categories');
+
+            Route::get('/resoures/{resource}/edit', 'edit')->name('resoures.edit');
+            Route::put('/resoures/{resource}', 'update')->name('resoures.update');
+
+            Route::delete('/resoures/{resource}', 'destroy')->name('resoures.destroy');
         });
 
         Route::controller(AdminQuestionTypeController::class)->group(function () {

@@ -14,4 +14,9 @@ class Level extends Model
     {
         return $this->hasMany(Subject::class);
     }
+
+    public function resource()
+    {
+        return $this->hasMany(Resource::class);
+    }
 }

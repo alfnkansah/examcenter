@@ -18,7 +18,8 @@ class ResourceController extends Controller
 {
     public function index()
     {
-        return view('resources.index');
+        $resources = Resource::all();
+        return view('resources.index', compact('resources'));
     }
 
     public function create()
@@ -138,5 +139,12 @@ class ResourceController extends Controller
             ->get();
 
         return response()->json($subjects);
+    }
+
+    public function destroy(Resource $resource)
+    {
+        $resource->delete();
+
+        return redirect()->route('view_resources')->with('success', 'Resource deleted successfully.');
     }
 }
