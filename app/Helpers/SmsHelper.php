@@ -13,7 +13,7 @@ class SmsHelper
         $messageData = [
             'username' => 'alfnkansah',
             'password' => '0545Sunndayy#',
-            'senderid' => 'CutoffCheck',
+            'senderid' => 'ExamCenter',
             'message' => $customMessage,
             'service' => 'SMS',
             'smstype' => 'text',
