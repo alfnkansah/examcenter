@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.8",
         "laraveldaily/laravel-charts": "^0.2.3",
         "shetabit/visitor": "^4.3",
+        "sparors/laravel-ussd": "^2.5",
         "spatie/pdf-to-image": "^1.2"
     },
     "require-dev": {
