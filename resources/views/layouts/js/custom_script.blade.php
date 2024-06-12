@@ -159,45 +159,183 @@
 </script>
 
 
-
+{{-- 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const levelIdInput = document.getElementById('level_id');
+        const examTypeIdInput = document.getElementById('exam_type_id');
+        const tagInput = document.getElementById('tag');
+        const programDiv = document.getElementById('program-div');
+        const programSelect = document.getElementById('program_id');
 
-        // Fetch subjects function
+        // Fetch exam types function
         function fetchExamTypes() {
             const levelId = levelIdInput.value;
-
-
+            console.log(levelId);
             fetch(`/get-examtypes?level_id=${levelId}`)
                 .then(response => response.json())
                 .then(data => {
-                    const subjectsDropdown = document.getElementById('exam_type_id');
-                    subjectsDropdown.innerHTML = '<option>Select Exam Type</option>';
+                    examTypeIdInput.innerHTML = '<option value="">Select Exam Type</option>';
 
-                    // Loop through fetched subjects and append options to the dropdown
-                    data.forEach(subject => {
+                    data.forEach(examType => {
                         const option = document.createElement('option');
-                        option.value = subject.id;
-                        option.textContent = subject.name;
-                        subjectsDropdown.appendChild(option);
+                        option.value = examType.id;
+                        option.textContent = examType.name;
+                        examTypeIdInput.appendChild(option);
                     });
 
-                    // Set the old selected subject if available
-                    const oldsubjectId = "{{ old('exam_type_id') }}";
-                    if (oldsubjectId) {
-                        subjectsDropdown.value = oldsubjectId;
+                    const selectedExamTypeId = "{{ $program->exam_type_id ?? old('exam_type_id') }}";
+
+                    if (selectedExamTypeId) {
+                        examTypeIdInput.value = selectedExamTypeId;
                     }
+
+                    // Fetch programs after setting the exam type
+                    fetchPrograms();
                 })
                 .catch(error => {
                     console.error('Error fetching Exam Types:', error);
                 });
         }
 
-        // Event listeners
-        levelIdInput.addEventListener('change', fetchExamTypes);
+        // Fetch programs function
+        function fetchPrograms() {
+            const levelId = levelIdInput.value;
+            const examTypeId = examTypeIdInput.value;
+            const tagValue = tagInput.value;
 
-        // Fetch subjects on page load if old values are available
+            if (levelId && examTypeId && tagValue) {
+                fetch(`/get-programs?level_id=${levelId}&exam_type_id=${examTypeId}&tag=${tagValue}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.length > 0) {
+                            programDiv.style.display = 'block';
+                            programSelect.innerHTML = '<option value="">Select A Program</option>';
+
+                            data.forEach(program => {
+                                const option = document.createElement('option');
+                                option.value = program.id;
+                                option.textContent = program.name;
+                                programSelect.appendChild(option);
+                            });
+
+                            const selectedProgramId = "{{ $subject->program_id ?? old('program_id') }}";
+                            if (selectedProgramId) {
+                                programSelect.value = selectedProgramId;
+                            }
+                        } else {
+                            programDiv.style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching programs:', error);
+                        programDiv.style.display = 'none';
+                    });
+            } else {
+                programDiv.style.display = 'none';
+            }
+        }
+
+        // Event listeners
+        levelIdInput.addEventListener('change', function() {
+            fetchExamTypes();
+            fetchPrograms();
+        });
+        examTypeIdInput.addEventListener('change', fetchPrograms);
+        tagInput.addEventListener('change', fetchPrograms);
+
+        // Initial fetch on page load
+        fetchExamTypes();
+    });
+</script> --}}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const levelIdInput = document.getElementById('level_id');
+        const examTypeIdInput = document.getElementById('exam_type_id');
+        const tagInput = document.getElementById('tag');
+        const programDiv = document.getElementById('program-div');
+        const programSelect = document.getElementById('program_id');
+        fetchExamTypes();
+
+        // Fetch exam types function
+        function fetchExamTypes() {
+            const levelId = levelIdInput.value;
+            if (levelId) {
+                fetch(`/get-examtypes?level_id=${levelId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        examTypeIdInput.innerHTML = '<option value="">Select Exam Type</option>';
+
+                        data.forEach(examType => {
+                            const option = document.createElement('option');
+                            option.value = examType.id;
+                            option.textContent = examType.name;
+                            examTypeIdInput.appendChild(option);
+                        });
+
+                        const selectedExamTypeId =
+                            "{{ $subject->exam_type_id ?? ($program->exam_type_id ?? old('exam_type_id')) }}";
+                        if (selectedExamTypeId) {
+                            examTypeIdInput.value = selectedExamTypeId;
+                        }
+
+                        // Fetch programs after setting the exam type
+                        fetchPrograms();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching Exam Types:', error);
+                    });
+            }
+        }
+
+        // Fetch programs function
+        function fetchPrograms() {
+            const levelId = levelIdInput.value;
+            const examTypeId = examTypeIdInput.value;
+            const tagValue = tagInput.value;
+
+            if (levelId && examTypeId && tagValue) {
+                fetch(`/get-programs?level_id=${levelId}&exam_type_id=${examTypeId}&tag=${tagValue}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.length > 0) {
+                            programDiv.style.display = 'block';
+                            programSelect.innerHTML = '<option value="">Select A Program</option>';
+
+                            data.forEach(program => {
+                                const option = document.createElement('option');
+                                option.value = program.id;
+                                option.textContent = program.name;
+                                programSelect.appendChild(option);
+                            });
+
+                            const selectedProgramId = "{{ $subject->program_id ?? old('program_id') }}";
+                            if (selectedProgramId) {
+                                programSelect.value = selectedProgramId;
+                            }
+                        } else {
+                            programDiv.style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching programs:', error);
+                        programDiv.style.display = 'none';
+                    });
+            } else {
+                programDiv.style.display = 'none';
+            }
+        }
+
+        // Event listeners
+        levelIdInput.addEventListener('change', function() {
+            fetchExamTypes();
+            fetchPrograms();
+        });
+        examTypeIdInput.addEventListener('change', fetchPrograms);
+        tagInput.addEventListener('change', fetchPrograms);
+
+        // Fetch exam types on page load
         fetchExamTypes();
     });
 </script>

@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-class Subject extends Model
+class Program extends Model
 {
     use HasFactory;
+    protected $table = 'programs';
 
-    protected $fillable = ['level_id', 'name', 'exam_type_id', 'slug', 'tag', 'program_id'];
+    protected $fillable = ['level_id', 'name', 'exam_type_id', 'slug'];
 
     protected static function boot()
     {
@@ -22,7 +23,6 @@ class Subject extends Model
             $subject->slug = Str::slug($subject->name);
         });
     }
-
 
     public function examType(): BelongsTo
     {

@@ -22,24 +22,40 @@ class AdminSubjectsController extends Controller
     }
     public function store(Request $request)
     {
-        $request->validate([
+        // Validate the request
+        $validatedData = $request->validate([
             'level_id' => 'required|exists:levels,id',
             'exam_type_id' => 'required|exists:exam_types,id',
             'name' => 'required|string|max:255',
-            'tag' => 'required|string'
+            'tag' => 'required|string',
+            'program_id' => 'nullable|exists:programs,id|required_if:tag,elective'
         ]);
-        $data = $request->except(['_token']);
 
-        $subjectExist = Subject::where('level_id', $request->level_id)->where('exam_type_id', $request->exam_type_id)->where('name', $request->name)->first();
-        if (!$subjectExist == null) {
-            return redirect()->back()->with('error', 'Subject is already in the system for this level and exam type.');
+        // Build the query for duplicate check
+        $query = Subject::where('level_id', $validatedData['level_id'])
+            ->where('exam_type_id', $validatedData['exam_type_id'])
+            ->where('name', $validatedData['name']);
+
+        if ($request->tag === 'elective') {
+            $query->where('program_id', $validatedData['program_id']);
         }
 
+        $subjectExist = $query->first();
 
-        Subject::create($data);
+        if ($subjectExist !== null) {
+            return redirect()->back()->with('error', 'Subject is already in the system for this level and exam type.')
+                ->withInput($request->all());
+        }
+
+        // Create the subject
+        Subject::create($validatedData);
 
         return redirect()->back()->with('success', 'Subject created successfully.');
     }
+
+
+
+
 
     public function edit(Subject $subject)
     {

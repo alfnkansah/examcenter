@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminClassesController;
 use App\Http\Controllers\Admin\AdminPagesController;
+use App\Http\Controllers\Admin\AdminProgramController;
 use App\Http\Controllers\Admin\AdminSubjectsController;
 use App\Http\Controllers\Admin\AdminQuestionTypeController;
 use App\Http\Controllers\Admin\ExaminationTypeController;
@@ -79,6 +80,7 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::controller(AdminPagesController::class)->group(function () {
             Route::get('/dashboard', 'index')->name('dashboard');
             Route::get('/classes', 'levels')->name('levels.index');
+            Route::get('/programs', 'programs')->name('programs.index');
             Route::get('/subjects', 'subjects')->name('subjects.index');
             Route::get('/exams-types', 'examsTypes')->name('exams.index');
             Route::get('/exams-category', 'examsCategory')->name('category.index');
@@ -123,6 +125,17 @@ Route::middleware('auth', 'verified')->group(function () {
             Route::put('/subject/{subject}/update', 'update')->name('subjects.update');
 
             Route::delete('/subject/{subject}destory', 'destroy')->name('subjects.destroy');
+        });
+
+        Route::controller(AdminProgramController::class)->group(function () {
+            Route::get('/program-create', 'create')->name('programs.create');
+            Route::post('/program/store', 'store')->name('programs.store');
+            Route::get('/program/{program}/edit', 'edit')->name('programs.edit');
+            Route::put('/program/{program}/update', 'update')->name('programs.update');
+
+            Route::delete('/program/{program}destory', 'destroy')->name('programs.destroy');
+
+            Route::get('/get-programs', 'getPrograms')->name('get-programs');
         });
 
         Route::controller(ResourceController::class)->group(function () {

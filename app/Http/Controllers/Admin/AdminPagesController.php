@@ -8,6 +8,7 @@ use App\Http\Controllers\GreetingController;
 use App\Models\ExamCategory;
 use App\Models\ExamType;
 use App\Models\Level;
+use App\Models\Program;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -78,6 +79,11 @@ class AdminPagesController extends Controller
         return view('subject.index', compact('subjects'));
     }
 
+    public function programs()
+    {
+        $programs = Program::all();
+        return view('programs.index', compact('programs'));
+    }
 
     public function getUserTimezone(Request $request)
     {

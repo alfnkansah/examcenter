@@ -4,9 +4,9 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Subjects Table</h4>
+                    <h4 class="card-title">Programs Table</h4>
                     <div class="table-responsive">
-                        @if ($subjects->isEmpty())
+                        @if ($programs->isEmpty())
                             <div class="alert alert-info">
                                 No record found
                             </div>
@@ -19,7 +19,7 @@
                                             Name
                                         </th>
                                         <th>
-                                            Category
+                                            Exams Type
                                         </th>
                                         <th>
                                             Level
@@ -30,31 +30,31 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($subjects as $subject)
+                                    @foreach ($programs as $program)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>
-                                                {{ $subject->name }}
+                                                {{ $program->name }}
                                             </td>
                                             <td>
-                                                {{ $subject->tag }}
-                                            </td>
-
-                                            <td>
-                                                {{ $subject->level->name }}
+                                                {{ $program->examType->short_name }}
                                             </td>
 
                                             <td>
-                                                <a href="{{ route('subjects.edit', $subject->id) }}"
+                                                {{ $program->level->name }}
+                                            </td>
+
+                                            <td>
+                                                <a href="{{ route('programs.edit', $program->id) }}"
                                                     class="btn btn-sm btn-primary">Edit</a>
 
                                                 <a href="#" class="btn btn-sm bg-danger text-white delete-action-btn"
-                                                    data-action-id="{{ $subject->id }}" data-action-type="subjects">
+                                                    data-action-id="{{ $program->id }}" data-action-type="programs">
                                                     Delete
                                                 </a>
 
-                                                <form id="delete-form-subjects-{{ $subject->id }}"
-                                                    action="{{ route('subjects.destroy', $subject->id) }}" method="POST"
+                                                <form id="delete-form-programs-{{ $program->id }}"
+                                                    action="{{ route('programs.destroy', $program->id) }}" method="POST"
                                                     style="display: none;">
                                                     @csrf
                                                     @method('DELETE')

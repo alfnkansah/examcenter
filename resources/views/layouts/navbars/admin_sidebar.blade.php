@@ -16,10 +16,16 @@
         <x-dropdown-link route="category.create" label="Add Category" />
     </x-dropdown>
 
+    <x-dropdown id="programs" label="Elective Programs" icon="icon-book">
+        <x-dropdown-link route="programs.index" label="View All" />
+        <x-dropdown-link route="programs.create" label="Add Program" />
+    </x-dropdown>
+
     <x-dropdown id="subjects" label="Subjects" icon="icon-book">
         <x-dropdown-link route="subjects.index" label="View All" />
         <x-dropdown-link route="subjects.create" label="Add Subject" />
     </x-dropdown>
+
 
     <x-dropdown id="question_type" label="Question Types" icon="icon-book">
         <x-dropdown-link route="question_type" label="View All" />
