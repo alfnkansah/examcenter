@@ -65,7 +65,7 @@ class AdminProgramController extends Controller
 
     public function getPrograms(Request $request)
     {
-        Log::info($request->all());
+        // Log::info($request->all());
         $levelId = $request->input('level_id');
         $examTypeId = $request->input('exam_type_id');
         $tag = $request->input('tag');
