@@ -13,6 +13,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\HomePagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\USSD\UssdMachineController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\VarDumper\Caster\ResourceCaster;
 
@@ -172,6 +173,11 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::patch('/profile', 'update')->name('profile.update');
         Route::delete('/profile', 'destroy')->name('profile.destroy');
     });
+});
+
+
+Route::controller(UssdMachineController::class)->group(function () {
+    Route::post('ussd', 'startUSSD')->name('ussd.webhook');
 });
 
 require __DIR__ . '/auth.php';
