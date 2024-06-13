@@ -14,10 +14,13 @@
 <script src="{{ url('assets/admin/js/template.js') }}"></script>
 <script src="{{ url('assets/admin/js/settings.js') }}"></script>
 <script src="{{ url('assets/admin/js/todolist.js') }}"></script>
+<script src="{{ url('assets/admin/vendors/select2/select2.min.js') }}"></script>
 <!-- endinject -->
 <!-- Custom js for this page-->
 <script src="{{ url('assets/admin/js/dashboard.js') }}"></script>
 <script src="{{ url('assets/admin/js/Chart.roundedBarCharts.js') }}"></script>
+<script src="{{ url('assets/admin/js/select2.js') }}"></script>
+
 <!-- End custom js for this page-->
 
 @include('layouts.js.custom_script')

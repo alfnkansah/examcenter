@@ -124,12 +124,35 @@ class ResourceController extends Controller
     public function getCourses(Request $request)
     {
         $examId = $request->input('exam_type_id');
+        $tagValue = $request->input('tag');
+        $programId = $request->input('program_id');
+        $levelId = $request->input('level_id');
 
-        $subjects = Subject::where('exam_type_id', $examId)
-            ->get();
+        $query = Subject::query();
+
+        if ($levelId) {
+            $query->where('level_id', $levelId);
+        }
+
+        if ($examId) {
+            $query->where('exam_type_id', $examId);
+        }
+
+        if ($tagValue) {
+            $query->where('tag', $tagValue);
+        }
+
+        if ($programId) {
+            $query->whereHas('programs', function ($q) use ($programId) {
+                $q->where('program_id', $programId);
+            });
+        }
+
+        $subjects = $query->get();
 
         return response()->json($subjects);
     }
+
 
     public function getCategory(Request $request)
     {

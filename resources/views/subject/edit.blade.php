@@ -48,9 +48,10 @@
                             </div>
 
                             <div class="form-group col-sm-6" id="program-div" style="display: none;">
-                                <label for="program">Select Program</label>
-                                <select name="program_id" id="program_id" class="form-control">
-                                    <option value="">Select A Program</option>
+                                <label>Select Program(s)</label>
+                                <select class="form-control js-example-basic-multiple" name="program_ids[]" id="program_id"
+                                    multiple="multiple" style="width: 100%;">
+                                    <option value="">Select Program(s)</option>
                                 </select>
                             </div>
 

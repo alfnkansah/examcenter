@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('main')
     <div class="row">
-        <div class="col-md-8 grid-margin stretch-card">
+        <div class="col-md-10 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Exams Type form</h4>
@@ -48,6 +48,23 @@
 
                                 </select>
                             </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="subject">Select Category</label>
+                                <select name="tag" id="tag" class="form-control" required>
+                                    <option value="">Select Category</option>
+                                    <option value="core">Core Subjects</option>
+                                    <option value="elective">Elective Subjects</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-sm-6" id="program-div" style="display: none;">
+                                <label>Select Program(s)</label>
+                                <select class="form-control" name="program_id" id="program_id" style="width: 100%;">
+                                    <option value="">Select Program(s)</option>
+                                </select>
+                            </div>
+
 
                             <div class="form-group col-sm-6">
                                 <label for="subject">Select Subject</label>

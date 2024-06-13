@@ -7,6 +7,10 @@
 <link rel="stylesheet" href="{{ url('assets/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}">
 <link rel="stylesheet" href="{{ url('assets/admin/vendors/ti-icons/css/themify-icons.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ url('assets/admin/js/select.dataTables.min.css') }}">
+
+<link rel="stylesheet" href="{{ url('assets/admin/vendors/select2/select2.min.css') }}">
+<link rel="stylesheet" href="{{ url('assets/admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css') }}">
+
 <!-- End plugin css for this page -->
 <!-- inject:css -->
 <link rel="stylesheet" href="{{ url('assets/admin/css/vertical-layout-light/style.css') }}">

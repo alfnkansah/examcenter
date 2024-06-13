@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Program extends Model
 {
     use HasFactory;
+
     protected $table = 'programs';
 
     protected $fillable = ['level_id', 'name', 'exam_type_id', 'slug'];
@@ -19,8 +21,8 @@ class Program extends Model
     {
         parent::boot();
 
-        static::creating(function ($subject) {
-            $subject->slug = Str::slug($subject->name);
+        static::creating(function ($program) {
+            $program->slug = Str::slug($program->name);
         });
     }
 
@@ -37,5 +39,10 @@ class Program extends Model
     public function level(): BelongsTo
     {
         return $this->belongsTo(Level::class);
+    }
+
+    public function subjects(): BelongsToMany
+    {
+        return $this->belongsToMany(Subject::class, 'program_subject', 'program_id', 'subject_id');
     }
 }

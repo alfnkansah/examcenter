@@ -76,13 +76,19 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const examIdInput = document.getElementById('exam_type_id');
-
+        const tagInput = document.getElementById('tag');
+        const programInput = document.getElementById('program_id');
+        const levelInput = document.getElementById('level_id');
         // Fetch subjects function
         function fetchSubjects() {
             const examId = examIdInput.value;
+            const tagValue = tagInput.value;
+            const programValue = programInput.value;
+            const levelValue = levelInput.value;
 
-
-            fetch(`/get-subjects?exam_type_id=${examId}`)
+            fetch(
+                    `/get-subjects?exam_type_id=${examId}&tag=${tagValue}&program_id=${programValue}&level_id=${levelValue}`
+                )
                 .then(response => response.json())
                 .then(data => {
                     const subjectsDropdown = document.getElementById('subject_id');
@@ -109,6 +115,9 @@
 
         // Event listeners
         examIdInput.addEventListener('change', fetchSubjects);
+        tagInput.addEventListener('change', fetchSubjects);
+        programInput.addEventListener('change', fetchSubjects);
+        levelInput.addEventListener('change', fetchSubjects);
 
         // Fetch subjects on page load if old values are available
         fetchSubjects();
@@ -121,7 +130,7 @@
         const examIdInput = document.getElementById('exam_type_id');
 
         // Fetch subjects function
-        function fetchSubjects() {
+        function fetchCategory() {
             const examId = examIdInput.value;
 
 
@@ -151,10 +160,10 @@
         }
 
         // Event listeners
-        examIdInput.addEventListener('change', fetchSubjects);
+        examIdInput.addEventListener('change', fetchCategory);
 
         // Fetch subjects on page load if old values are available
-        fetchSubjects();
+        fetchCategory();
     });
 </script>
 
@@ -266,20 +275,17 @@
                     .then(response => response.json())
                     .then(data => {
                         examTypeIdInput.innerHTML = '<option value="">Select Exam Type</option>';
-
                         data.forEach(examType => {
                             const option = document.createElement('option');
                             option.value = examType.id;
                             option.textContent = examType.name;
                             examTypeIdInput.appendChild(option);
                         });
-
                         const selectedExamTypeId =
                             "{{ $subject->exam_type_id ?? ($program->exam_type_id ?? old('exam_type_id')) }}";
                         if (selectedExamTypeId) {
                             examTypeIdInput.value = selectedExamTypeId;
                         }
-
                         // Fetch programs after setting the exam type
                         fetchPrograms();
                     })
@@ -294,25 +300,29 @@
             const levelId = levelIdInput.value;
             const examTypeId = examTypeIdInput.value;
             const tagValue = tagInput.value;
-
             if (levelId && examTypeId && tagValue) {
                 fetch(`/get-programs?level_id=${levelId}&exam_type_id=${examTypeId}&tag=${tagValue}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data && data.length > 0) {
                             programDiv.style.display = 'block';
-                            programSelect.innerHTML = '<option value="">Select A Program</option>';
-
+                            programSelect.innerHTML = '<option value="">Select Program(s)</option>';
                             data.forEach(program => {
                                 const option = document.createElement('option');
                                 option.value = program.id;
                                 option.textContent = program.name;
                                 programSelect.appendChild(option);
                             });
-
-                            const selectedProgramId = "{{ $subject->program_id ?? old('program_id') }}";
-                            if (selectedProgramId) {
-                                programSelect.value = selectedProgramId;
+                            // Set selected programs (handles multiple selection)
+                            const selectedProgramIds = @json(old('program_ids', isset($subject) ? $subject->programs->pluck('id')->toArray() : []));
+                            if (selectedProgramIds) {
+                                selectedProgramIds.forEach(programId => {
+                                    const option = programSelect.querySelector(
+                                        `option[value="${programId}"]`);
+                                    if (option) {
+                                        option.selected = true;
+                                    }
+                                });
                             }
                         } else {
                             programDiv.style.display = 'none';
