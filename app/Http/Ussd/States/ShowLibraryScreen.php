@@ -10,7 +10,7 @@ class ShowLibraryScreen extends State
     protected function beforeRendering(): void
     {
         $this->menu->line('Kindly select an option from our libraries')
-            ->listing([$this->record->categoriesListingOptions]);
+            ->listing($this->record->categoriesListingOptions);
     }
 
     protected function afterRendering(string $argument): void
