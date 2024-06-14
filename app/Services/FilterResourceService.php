@@ -19,7 +19,7 @@ class FilterResourceService
         $resources = $resources->shuffle()->take(9);
 
         // Render the view as HTML
-        $html = View::make('resource-render', compact('resources'))->render();
+        $html = View::make('resource-render', compact('resources', 'category'))->render();
 
         return $html;
     }
@@ -109,7 +109,7 @@ class FilterResourceService
         $resources = $resources->shuffle()->take(9);
 
         // Render the view as HTML
-        $html = View::make('answer-render', compact('resources'))->render();
+        $html = View::make('answer-render', compact('resources', 'category'))->render();
 
         return $html;
     }
