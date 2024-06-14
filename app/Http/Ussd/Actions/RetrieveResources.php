@@ -3,6 +3,7 @@
 namespace App\Http\Ussd\Actions;
 
 use App\Http\Ussd\States\ShowResourceScreen;
+use App\Http\Ussd\States\Welcome;
 use App\Models\ExamCategory;
 use Sparors\Ussd\Action;
 
@@ -30,6 +31,6 @@ class RetrieveResources extends Action
         $this->record->set('resourcesMap', $resourcesMap);
         $this->record->set('resourcesListingOptions', $resourcesListingOptions);
 
-        return ShowResourceScreen::class;
+        return Welcome::class;
     }
 }
