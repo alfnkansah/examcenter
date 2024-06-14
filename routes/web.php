@@ -177,7 +177,7 @@ Route::middleware('auth', 'verified')->group(function () {
 
 
 Route::controller(UssdMachineController::class)->group(function () {
-    Route::post('ussd', 'startUSSD')->name('ussd.webhook');
+    Route::post('/ussd', 'startUSSD')->name('ussd.webhook');
 });
 
 require __DIR__ . '/auth.php';
