@@ -32,6 +32,12 @@ use Symfony\Component\VarDumper\Caster\ResourceCaster;
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+Route::controller(UssdMachineController::class)->group(function () {
+    Route::post('/ussd-api', 'startUSSD')->name('ussd.webhook');
+});
+
+
 Route::middleware(['visitor'])->group(function () {
     Route::controller(HomePagesController::class)->group(function () {
         Route::get('/', 'index')->name('homepage');
@@ -176,8 +182,5 @@ Route::middleware('auth', 'verified')->group(function () {
 });
 
 
-Route::controller(UssdMachineController::class)->group(function () {
-    Route::post('/ussd', 'startUSSD')->name('ussd.webhook');
-});
 
 require __DIR__ . '/auth.php';
