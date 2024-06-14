@@ -24,7 +24,7 @@ class PascoScreen extends State
         $this->record->set('examTypeMap', $examTypeMap);
 
         $this->menu->line('Kindly select your examination type')
-            ->listing([$listingOptions]);
+            ->listing($listingOptions);
     }
 
     protected function afterRendering(string $argument): void
