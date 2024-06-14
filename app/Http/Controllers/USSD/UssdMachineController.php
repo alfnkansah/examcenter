@@ -12,53 +12,28 @@ class UssdMachineController extends Controller
 {
     public function startUSSD(Request $request)
     {
-        // Read incoming data
-        $data = $request->all();
-        Log::info($data);
-        // Set your custom session id and start session for the incoming request
-        $msisdn = $data['MSISDN'];
-        session()->put('ussd_session_id', md5($msisdn));
-        session()->start();
+        Log::info($request);
+        Log::info($request['SESSIONID']);
+        Log::info($request->SESSIONID);
 
-        // Get all incoming request parameters
-        $ussd_id = $data['USERID'];
-        $user_data = $data['USERDATA'];
-        $msgtype = $data['MSGTYPE'];
-        $id = session()->getId();
+        Ussd::machine()->setSessionIdFromRequest('SESSIONID');
 
-        // Subsequent dials
-        if (session()->has($id) && !$msgtype) {
-            session()->put($id, session()->get($id) . $user_data);
-            $user_dials = preg_split("/\#\*\#/", session()->get($id));
-            $msg = "Hello " . $user_dials[1] . ", Your initial dial was " . $user_dials[0] . "\nInputs were successfully stored and passed on to this screen.\nHappy Coding :)";
-            $resp = [
-                "USERID" => $ussd_id,
-                "MSISDN" => $msisdn,
-                "USERDATA" => $user_data,
-                "MSG" => $msg,
-                "MSGTYPE" => false
-            ];
-            return response()->json($resp);
-            session()->forget($id);
-        } else {
-            // To reinitialize session variable in case the user cancelled initial screen
-            if (session()->has($id) && $msgtype) {
-                session()->forget($id);
-            }
-
-            // Stores user inputs using sessions
-            session()->put($id, $user_data . "#*#");
-
-            // Responds to request. MSG variable will be displayed on the user's screen
-            $msg = "Welcome to NALO test demo\nThis is to help you get started with session/data management\nEnter your name please";
-            $resp = [
-                "USERID" => $ussd_id,
-                "MSISDN" => $msisdn,
-                "USERDATA" => $user_data,
-                "MSG" => $msg,
-                "MSGTYPE" => true
-            ];
-            return response()->json($resp);
-        }
+        $ussd = Ussd::machine()
+            ->set([
+                'phone_number' => $request['MSISDN'],
+                'input' => $request['USERDATA'],
+                'network' => $request['NETWORK'],
+                'session_id' => $request['SESSIONID'],
+            ])
+            ->setInitialState(Welcome::class)
+            ->setResponse(function (string $message, string $action) use ($request) {
+                return [
+                    'USERID' => $request['USERID'],
+                    'MSISDN' => $request['MSISDN'],
+                    'MSG' => $message,
+                    'MSGTYPE' => $action == 'input' ? true : false,
+                ];
+            });
+        return response()->json($ussd->run());
     }
 }
