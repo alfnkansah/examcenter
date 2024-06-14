@@ -19,6 +19,6 @@ class Welcome extends State
     protected function afterRendering(string $argument): void
     {
         $this->decision->equal(1, PascoScreen::class);
-        $this->decision->equal(3, ContactDetail::class);
+        $this->decision->equal(2, ContactDetail::class);
     }
 }
