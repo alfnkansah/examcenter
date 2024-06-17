@@ -34,7 +34,7 @@ use Symfony\Component\VarDumper\Caster\ResourceCaster;
 // });
 
 Route::controller(UssdMachineController::class)->group(function () {
-    Route::post('/ussd-api', 'startUSSD');
+    Route::post('/ussd', 'startUSSD');
 });
 
 
