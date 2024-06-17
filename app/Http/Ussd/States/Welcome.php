@@ -11,6 +11,7 @@ class Welcome extends State
     {
         $this->menu->line('Welcome to ExamCenter.com.gh!')
             ->line('We provide a platform to access educational resources and information.')
+            ->lineBreak()
             ->line('Please choose an option:')
             ->listing([
                 'Access Questions Resource',
