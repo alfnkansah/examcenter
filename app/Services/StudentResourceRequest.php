@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\Models\Student;
 use App\Models\StudentResource;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class StudentResourceRequest
 {
@@ -22,7 +23,7 @@ class StudentResourceRequest
 
         // Create student resource record
         $studentResource = new StudentResource();
-        $studentResource->resource_id = $request->resourceID;
+        $studentResource->resource_id = $request['resourceID'];
         $studentResource->student_id = $student->id;
         $studentResource->download_token = $downloadToken;
         $studentResource->expires_at = $expirationDate;
@@ -36,13 +37,13 @@ class StudentResourceRequest
 
     public function storeStudentDetails($request)
     {
-        $student = Student::findOrfail($request->student_id);
+        $student = Student::findOrfail($request['student_id']);
 
         if (!$student) {
             return 404;
         }
-        $student->full_name = $request->student_name;
-        $student->level = $request->student_level;
+        $student->full_name = $request['student_name'];
+        $student->level = $request['student_level'];
         $student->save();
 
         return $student;
@@ -51,13 +52,14 @@ class StudentResourceRequest
 
     public function notNewStudent($request, $student)
     {
+        Log::info($request);
         // Generate download token and set expiration date
         $downloadToken = Str::random(40);
         $expirationDate = Carbon::now()->addMinutes(30);
 
         // Create student resource record
         $studentResource = new StudentResource();
-        $studentResource->resource_id = $request->resourceID;
+        $studentResource->resource_id = $request['resourceID'];
         $studentResource->student_id = $student->id;
         $studentResource->download_token = $downloadToken;
         $studentResource->expires_at = $expirationDate;

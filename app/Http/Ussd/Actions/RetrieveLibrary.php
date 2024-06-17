@@ -6,6 +6,7 @@ use App\Http\Ussd\States\PascoScreen;
 use App\Http\Ussd\States\ShowLibraryScreen;
 use App\Models\ExamCategory;
 use App\Models\ExamType;
+use Illuminate\Support\Facades\Log;
 use Sparors\Ussd\Action;
 
 class RetrieveLibrary extends Action

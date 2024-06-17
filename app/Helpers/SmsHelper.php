@@ -21,7 +21,7 @@ class SmsHelper
             'destinations' => [
                 [
                     'destination' => $student->phone_number,
-                    'msgid' => 101
+                    'msgid' => time() . mt_rand(1000, 9999)
                 ]
             ]
         ];
@@ -31,7 +31,7 @@ class SmsHelper
                 "Content-Type" => "application/json"
             ])->post("https://frog.wigal.com.gh/api/v2/sendmsg", $messageData);
 
-            Log::info($response);
+            // Log::info($response);
             return $response;
         } catch (Exception $e) {
             Log::error("Error: " . $e->getMessage());

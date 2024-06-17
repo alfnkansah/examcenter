@@ -3,6 +3,8 @@
 namespace App\Http\Ussd\States;
 
 use App\Http\Ussd\Actions\RetrieveResources;
+use App\Http\Ussd\Actions\StoreStudentData;
+use App\Http\Ussd\Actions\TakeStudentData;
 use Sparors\Ussd\State;
 
 class ShowResourceScreen extends State
@@ -10,7 +12,7 @@ class ShowResourceScreen extends State
     protected function beforeRendering(): void
     {
         $this->menu->line('Kindly select a resource')
-            ->listing([$this->record->resourcesListingOptions]);
+            ->listing($this->record->resourcesListingOptions);
     }
 
     protected function afterRendering(string $argument): void
@@ -21,9 +23,7 @@ class ShowResourceScreen extends State
 
             $this->decision->custom(function ($argument) {
                 return is_int((int) $argument);
-
-                //! chanage this action class to the right one when you resurme work
-            }, RetrieveResources::class);
+            }, TakeStudentData::class);
         } else {
             // Handle the case where the user's input is invalid
         }

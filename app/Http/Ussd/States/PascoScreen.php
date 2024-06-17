@@ -4,10 +4,13 @@ namespace App\Http\Ussd\States;
 
 use App\Http\Ussd\Actions\RetrieveLibrary;
 use App\Models\ExamType;
+use App\Models\Student;
 use Sparors\Ussd\State;
 
 class PascoScreen extends State
 {
+    protected $action = self::INPUT;
+
     protected function beforeRendering(): void
     {
         // Retrieve all exam types from the database
@@ -19,7 +22,7 @@ class PascoScreen extends State
         $index = 1;
 
         foreach ($examTypes as $examType) {
-            $listingOptions[] = $index . '. ' . $examType->name;
+            $listingOptions[] = $examType->short_name;
             $examTypeMap[$index] = $examType->id;
             $index++;
         }
@@ -34,20 +37,16 @@ class PascoScreen extends State
 
     protected function afterRendering(string $argument): void
     {
-        // Retrieve exam type ID based on user input
-        $examTypeMap = $this->record->get('examTypeMap');
+        if (isset($this->record->get('examTypeMap')[$argument])) {
+            $selectedexamType = $this->record->get('examTypeMap')[$argument];
 
-        if (isset($examTypeMap[$argument])) {
-            $selectedExamTypeId = $examTypeMap[$argument];
-            $this->record->set('selectedExamTypeId', $selectedExamTypeId);
+            $this->record->set('selectedexamType', $selectedexamType);
 
-            // Proceed to retrieve library action for the selected exam type
             $this->decision->custom(function ($argument) {
-                return is_numeric($argument);
+                return is_int((int) $argument);
             }, RetrieveLibrary::class);
         } else {
             // Handle the case where the user's input is invalid
-            $this->menu->line('Invalid selection. Please choose a valid option.');
         }
     }
 }

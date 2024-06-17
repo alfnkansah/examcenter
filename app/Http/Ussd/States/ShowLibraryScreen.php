@@ -7,9 +7,11 @@ use Sparors\Ussd\State;
 
 class ShowLibraryScreen extends State
 {
+    protected $action = self::INPUT;
+
     protected function beforeRendering(): void
     {
-        $this->menu->line('Kindly select an option from our libraries')
+        $this->menu->line('Kindly select an option')
             ->listing($this->record->categoriesListingOptions);
     }
 
@@ -17,6 +19,7 @@ class ShowLibraryScreen extends State
     {
         if (isset($this->record->get('categoriesMap')[$argument])) {
             $selectedCategory = $this->record->get('categoriesMap')[$argument];
+
             $this->record->set('selectedCategory', $selectedCategory);
 
             $this->decision->custom(function ($argument) {

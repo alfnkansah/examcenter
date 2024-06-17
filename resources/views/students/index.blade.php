@@ -35,11 +35,17 @@
                                             <td>{{ $student->full_name }}</td>
                                             <td>
                                                 @if ($student->level == 1)
-                                                    Form 1
+                                                    J.H.S 1
                                                 @elseif($student->level == 2)
-                                                    Form 2
+                                                    J.H.S 2
                                                 @elseif($student->level == 3)
-                                                    Form 3
+                                                    J.H.S 3
+                                                @elseif($student->level == 4)
+                                                    S.H.S 1
+                                                @elseif($student->level == 5)
+                                                    S.H.S 2
+                                                @elseif($student->level == 6)
+                                                    S.H.S 3
                                                 @else
                                                     Unknown Level
                                                 @endif

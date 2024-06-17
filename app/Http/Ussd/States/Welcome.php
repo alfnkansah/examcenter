@@ -13,9 +13,9 @@ class Welcome extends State
             ->line('We provide a platform to access educational resources and information.')
             ->line('Please choose an option:')
             ->listing([
-                '1. Access Questions Resource',
-                '2. About Us',
-                '3. Contact Support',
+                'Access Questions Resource',
+                'About Us',
+                'Contact Support',
             ]);
     }
 

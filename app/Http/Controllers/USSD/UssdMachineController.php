@@ -12,9 +12,9 @@ class UssdMachineController extends Controller
 {
     public function startUSSD(Request $request)
     {
-        Log::info($request);
-        Log::info($request['SESSIONID']);
-        Log::info($request->SESSIONID);
+        // Log::info($request);
+        // Log::info($request['SESSIONID']);
+        // Log::info($request->SESSIONID);
 
         Ussd::machine()->setSessionIdFromRequest('SESSIONID');
 
