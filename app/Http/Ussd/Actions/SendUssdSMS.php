@@ -25,7 +25,7 @@ class SendUssdSMS extends Action
         if ($sendLink->successful()) {
             $responseBody = $sendLink->json();
             if ($responseBody['status'] === 'ACCEPTED') {
-                $msg = "Thank you! you will receive and sms shortly";
+                $msg = "Thank you! and you will receive an sms shortly";
                 $this->record->set('finalMessage', $msg);
                 return ShowFinalDownloadMessage::class;
             } else {
