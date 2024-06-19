@@ -44,7 +44,8 @@ class PascoScreen extends State
 
             $this->decision->custom(function ($argument) {
                 return is_int((int) $argument);
-            }, RetrieveLibrary::class);
+                // }, RetrieveLibrary::class);
+            }, SelectSubjectType::class);
         } else {
             // Handle the case where the user's input is invalid
         }
