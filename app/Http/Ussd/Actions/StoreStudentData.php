@@ -18,8 +18,5 @@ class StoreStudentData extends Action
         $newStudent =  (new StudentResourceRequest)->storeStudentDetails($request);
 
         return PreviewDownLoadRequest::class;
-
-
-        return ''; // The state after this
     }
 }

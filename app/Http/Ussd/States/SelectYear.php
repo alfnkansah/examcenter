@@ -3,32 +3,34 @@
 namespace App\Http\Ussd\States;
 
 use App\Http\Ussd\Actions\RetrieveLibrary;
+use App\Http\Ussd\Actions\RetrieveResources;
+use Illuminate\Support\Facades\Log;
 use Sparors\Ussd\State;
 
 class SelectYear extends State
 {
+    protected $action = self::INPUT;
+
     protected function beforeRendering(): void
     {
-        $currentYear = now()->year;
-        $startYear = 2015;
-        $years = [];
-        for ($year = $currentYear; $year >= $startYear; $year--) {
-            $years[] = $year;
-        }
-
-        $this->menu->line('Please choose an option:')
-            ->lineBreak()
-            ->listing($years); // Pass the $years array to listing()
+        // Display the options to the user
+        $this->menu->line('Select an option:')
+            ->listing($this->record->get('yearOptions'));
     }
 
     protected function afterRendering(string $argument): void
     {
+        if (isset($this->record->get('yearMapping')[$argument])) {
+            // Log::info($this->record->get('yearMapping'));
+            $selectedYear = $this->record->get('yearMapping')[$argument];
+            // Log::info($selectedYear);
+            $this->record->set('selectedYear', $selectedYear);
 
-        $selectedYear = $this->record->set('subjectType', $argument);
-
-
-        $this->decision->custom(function ($argument) {
-            return is_int((int) $argument);
-        }, RetrieveLibrary::class);
+            $this->decision->custom(function ($argument) {
+                return is_int((int) $argument);
+            }, RetrieveResources::class);
+        } else {
+            // Handle the case where the user's input is invalid
+        }
     }
 }

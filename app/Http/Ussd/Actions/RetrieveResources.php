@@ -5,6 +5,7 @@ namespace App\Http\Ussd\Actions;
 use App\Http\Ussd\States\ShowResourceScreen;
 use App\Http\Ussd\States\Welcome;
 use App\Models\ExamCategory;
+use App\Models\Resource;
 use Illuminate\Support\Facades\Log;
 use Sparors\Ussd\Action;
 
@@ -12,12 +13,17 @@ class RetrieveResources extends Action
 {
     public function run(): string
     {
-        $category = ExamCategory::where('id', $this->record->selectedCategory)->first();
-        if (!$category) {
-            // return PascoScreen::class;
-        }
+        $examTypeId = $this->record->get('selectedExamType');
+        $examCategoryId = $this->record->get('selectedCategory');
+        $subjectId = $this->record->get('selectedSubject');
+        $examYear = $this->record->get('selectedYear');
 
-        $resources = $category->resources;
+        $resources = Resource::where('exam_type_id', $examTypeId)
+            ->where('exam_category_id', $examCategoryId)
+            ->where('subject_id', $subjectId)
+            ->where('exam_year', $examYear)
+            ->get();
+
 
         $resourcesListingOptions = [];
         $resourcesMap = [];

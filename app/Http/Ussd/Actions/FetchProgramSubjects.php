@@ -17,7 +17,7 @@ class FetchProgramSubjects extends Action
         $index = 1;
 
         $subjects = Program::find($this->record->get('selectedProgram'))->subjects()
-            // ->whereHas('resources')
+            ->whereHas('resources')
             ->get();
 
 
@@ -35,8 +35,5 @@ class FetchProgramSubjects extends Action
         $this->record->set('subjectOptions', $programSubjectOptions);
 
         return ShowSubjectScreen::class;
-
-
-        return ''; // The state after this
     }
 }

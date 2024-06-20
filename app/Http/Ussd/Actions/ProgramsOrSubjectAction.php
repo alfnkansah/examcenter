@@ -36,7 +36,7 @@ class ProgramsOrSubjectAction extends Action
             }
         } elseif ($this->record->get('subjectType') == 'elective') {
             $programs = Program::where('exam_type_id', $this->record->get('selectedExamType'))
-                // ->whereHas('subjects.resources')
+                ->whereHas('subjects.resources')
                 ->get();
 
             if ($programs->isEmpty()) {

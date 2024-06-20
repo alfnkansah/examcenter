@@ -10,15 +10,17 @@ use Sparors\Ussd\State;
 
 class PreviewDownLoadRequest extends State
 {
+    protected $action = self::INPUT;
+
     protected function beforeRendering(): void
     {
         $resource = StudentResource::where('id', $this->record->student_resource_id)->first();
 
         if (!$resource) {
-            // return PascoScreen::class;
+            $this->menu->text('Sorry: we do not have materials available now, kindly try again next time');
         }
 
-        $this->menu->line('Your have request access to download')
+        $this->menu->line('Your have requested to download')
             ->line($resource->resource->subject->name . '-' . $resource->resource->exam_year . '-' . $resource->resource->questionType->name)
             ->line('Please confirm your choice:')
             ->listing([

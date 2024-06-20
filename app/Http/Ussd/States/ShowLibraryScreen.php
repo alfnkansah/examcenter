@@ -24,7 +24,7 @@ class ShowLibraryScreen extends State
 
             $this->decision->custom(function ($argument) {
                 return is_int((int) $argument);
-            }, RetrieveResources::class);
+            }, SelectSubjectType::class);
         } else {
             // Handle the case where the user's input is invalid
         }

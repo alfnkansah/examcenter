@@ -41,13 +41,12 @@ class PascoScreen extends State
     {
         if (isset($this->record->get('examTypeMap')[$argument])) {
             $selectedexamType = $this->record->get('examTypeMap')[$argument];
-            Log::info($selectedexamType);
+            // Log::info($selectedexamType);
             $this->record->set('selectedExamType', $selectedexamType);
 
             $this->decision->custom(function ($argument) {
                 return is_int((int) $argument);
-                // }, RetrieveLibrary::class);
-            }, SelectSubjectType::class);
+            }, RetrieveLibrary::class);
         } else {
             // Handle the case where the user's input is invalid
         }

@@ -13,7 +13,7 @@ class RetrieveLibrary extends Action
 {
     public function run(): string
     {
-        $examType = ExamType::where('id', $this->record->selectedexamType)->first();
+        $examType = ExamType::where('id', $this->record->selectedExamType)->first();
         if (!$examType) {
             return PascoScreen::class;
         }

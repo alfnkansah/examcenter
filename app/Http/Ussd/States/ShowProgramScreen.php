@@ -21,7 +21,7 @@ class ShowProgramScreen extends State
     {
         if (isset($this->record->get('programMapping')[$argument])) {
             $selectedProgram = $this->record->get('programMapping')[$argument];
-            Log::info($selectedProgram);
+            // Log::info($selectedProgram);
             $this->record->set('selectedProgram', $selectedProgram);
 
             $this->decision->custom(function ($argument) {
