@@ -2,6 +2,7 @@
 
 namespace App\Http\Ussd\States;
 
+use App\Http\Ussd\Actions\ProgramsOrSubjectAction;
 use App\Models\ExamType;
 use App\Models\Program;
 use Illuminate\Support\Facades\Log;
@@ -9,6 +10,8 @@ use Sparors\Ussd\State;
 
 class SelectSubjectType extends State
 {
+    protected $action = self::INPUT;
+
     protected function beforeRendering(): void
     {
         $selectedExamType = ExamType::find($this->record->get('selectedexamType'));
@@ -48,6 +51,6 @@ class SelectSubjectType extends State
         Log::info($subjectType);
         $this->decision->custom(function ($argument) {
             return is_int((int) $argument);
-        }, ProgramsOrSubjectSatet::class);
+        }, ProgramsOrSubjectAction::class);
     }
 }
