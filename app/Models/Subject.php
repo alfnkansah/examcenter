@@ -29,7 +29,7 @@ class Subject extends Model
         return $this->belongsTo(ExamType::class, 'exam_type_id');
     }
 
-    public function resource(): HasMany
+    public function resources(): HasMany
     {
         return $this->hasMany(Resource::class);
     }

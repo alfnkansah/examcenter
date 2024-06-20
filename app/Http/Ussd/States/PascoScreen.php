@@ -5,6 +5,7 @@ namespace App\Http\Ussd\States;
 use App\Http\Ussd\Actions\RetrieveLibrary;
 use App\Models\ExamType;
 use App\Models\Student;
+use Illuminate\Support\Facades\Log;
 use Sparors\Ussd\State;
 
 class PascoScreen extends State
@@ -13,9 +14,9 @@ class PascoScreen extends State
 
     protected function beforeRendering(): void
     {
-        // Retrieve all exam types from the database
-        $examTypes = ExamType::all();
-
+        // Retrieve exam types that have associated resources
+        $examTypes = ExamType::whereHas('resources')->get();
+        // Log::info($examTypes);
         // Prepare options for listing and map exam type IDs
         $listingOptions = [];
         $examTypeMap = [];
@@ -35,11 +36,12 @@ class PascoScreen extends State
             ->listing($listingOptions);
     }
 
+
     protected function afterRendering(string $argument): void
     {
         if (isset($this->record->get('examTypeMap')[$argument])) {
             $selectedexamType = $this->record->get('examTypeMap')[$argument];
-
+            Log::info($selectedexamType);
             $this->record->set('selectedexamType', $selectedexamType);
 
             $this->decision->custom(function ($argument) {

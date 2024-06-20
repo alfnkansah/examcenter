@@ -19,4 +19,14 @@ class ExamType extends Model
     {
         return $this->hasMany(ExamCategory::class);
     }
+
+    public function resources()
+    {
+        return $this->hasMany(Resource::class);
+    }
+
+    public function programs()
+    {
+        return $this->hasMany(Program::class);
+    }
 }

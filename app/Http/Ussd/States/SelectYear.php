@@ -2,6 +2,7 @@
 
 namespace App\Http\Ussd\States;
 
+use App\Http\Ussd\Actions\RetrieveLibrary;
 use Sparors\Ussd\State;
 
 class SelectYear extends State
@@ -22,6 +23,12 @@ class SelectYear extends State
 
     protected function afterRendering(string $argument): void
     {
-        //
+
+        $selectedYear = $this->record->set('subjectType', $argument);
+
+
+        $this->decision->custom(function ($argument) {
+            return is_int((int) $argument);
+        }, RetrieveLibrary::class);
     }
 }
