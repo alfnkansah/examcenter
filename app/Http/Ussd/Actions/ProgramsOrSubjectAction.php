@@ -32,7 +32,7 @@ class ProgramsOrSubjectAction extends Action
                 $mapping[$index] = $subject->id;
                 $index++;
             }
-        } elseif ($this->record->get('subjectType') === 'elective') {
+        } elseif ($this->record->get('subjectType') == 'elective') {
             $programs = Program::where('exam_type_id', $this->record->get('selectedExamType'))
                 // ->whereHas('subjects.resources')
                 ->get();
