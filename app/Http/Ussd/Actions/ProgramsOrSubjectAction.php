@@ -20,8 +20,8 @@ class ProgramsOrSubjectAction extends Action
         if ($this->record->get('subjectType') == 'core') {
             // Query subjects with tag 'core' and that have records in the resource table
             $subjects = Subject::where('tag', 'core')
-                ->where('exam_type_id', $this->record->get('selectedexamType'))
-                // ->whereHas('resources')
+                ->where('exam_type_id', $this->record->get('selectedExamType'))
+                ->whereHas('resources')
                 ->get();
             if ($subjects->isEmpty()) {
                 return ResourceNotFound::class;
@@ -36,6 +36,7 @@ class ProgramsOrSubjectAction extends Action
             $programs = Program::where('exam_type_id', $this->record->get('selectedExamType'))
                 // ->whereHas('subjects.resources')
                 ->get();
+            Log::info($programs);
 
             if ($programs->isEmpty()) {
                 return ResourceNotFound::class;

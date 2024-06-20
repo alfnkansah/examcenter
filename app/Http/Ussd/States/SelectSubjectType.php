@@ -14,7 +14,7 @@ class SelectSubjectType extends State
 
     protected function beforeRendering(): void
     {
-        $selectedExamType = ExamType::find($this->record->get('selectedexamType'));
+        $selectedExamType = ExamType::find($this->record->get('selectedExamType'));
         if ($selectedExamType) {
             if ($selectedExamType->programs()->exists()) {
                 $this->menu->line('Please choose an option:')
