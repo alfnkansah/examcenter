@@ -2,12 +2,9 @@
 
 namespace App\Http\Ussd\States;
 
-use App\Models\Program;
-use App\Models\Subject;
-use Illuminate\Support\Facades\Log;
 use Sparors\Ussd\State;
 
-class ProgramsOrSubjectSatet extends State
+class ShowSubjectScreen extends State
 {
     protected $action = self::INPUT;
 
@@ -15,8 +12,9 @@ class ProgramsOrSubjectSatet extends State
     {
         // Display the options to the user
         $this->menu->line('Select an option:')
-            ->listing($this->record->get('listingOptions'));
+            ->listing($this->record->get('subjectOptions'));
     }
+
 
     protected function afterRendering(string $argument): void
     {

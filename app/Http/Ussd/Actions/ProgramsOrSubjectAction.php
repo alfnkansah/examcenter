@@ -4,6 +4,8 @@ namespace App\Http\Ussd\Actions;
 
 use App\Http\Ussd\States\ProgramsOrSubjectSatet;
 use App\Http\Ussd\States\ResourceNotFound;
+use App\Http\Ussd\States\ShowProgramScreen;
+use App\Http\Ussd\States\ShowSubjectScreen;
 use App\Models\Program;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Log;
@@ -36,7 +38,6 @@ class ProgramsOrSubjectAction extends Action
             $programs = Program::where('exam_type_id', $this->record->get('selectedExamType'))
                 // ->whereHas('subjects.resources')
                 ->get();
-            Log::info($programs);
 
             if ($programs->isEmpty()) {
                 return ResourceNotFound::class;
@@ -47,12 +48,15 @@ class ProgramsOrSubjectAction extends Action
                 $mapping[$index] = $program->id;
                 $index++;
             }
+
+            $this->record->set('programMapping', $mapping);
+            $this->record->set('programOptions', $listingOptions);
+            return ShowProgramScreen::class;
         }
 
-        // Log::info($listingOptions);
-        $this->record->set('mapping', $mapping);
-        $this->record->set('listingOptions', $listingOptions);
+        $this->record->set('subjectMapping', $mapping);
+        $this->record->set('subjectOptions', $listingOptions);
 
-        return ProgramsOrSubjectSatet::class; // The state after this
+        return ShowSubjectScreen::class;
     }
 }
