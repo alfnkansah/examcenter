@@ -10,6 +10,26 @@
 
         <!-- DataTables Buttons CSS -->
         <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
+
+        <style>
+            .dt-buttons .dt-button {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 6px 12px;
+                margin: 2px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .dt-buttons .dt-button:hover {
+                background-color: #0056b3;
+            }
+
+            .dt-buttons .dt-button:active {
+                background-color: #003f7f;
+            }
+        </style>
     @endpush
     <div class="row">
         <div class="col-lg-12 grid-margin stretch-card">
