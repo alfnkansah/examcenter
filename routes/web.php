@@ -14,6 +14,7 @@ use App\Http\Controllers\HomePagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\USSD\UssdMachineController;
+use App\Http\Controllers\USSDContactController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\VarDumper\Caster\ResourceCaster;
 
@@ -94,6 +95,12 @@ Route::middleware('auth', 'verified')->group(function () {
             Route::get('/users-view-all', 'viewUsers')->name('users.index');
 
             Route::post('/update-timezone', 'getUserTimezone')->name('get-user-timezone');
+        });
+
+        Route::controller(USSDContactController::class)->group(function () {
+            Route::get('/ussd-contacts', 'index')->name('ussd.index');
+            Route::delete('/ussd-contacts/{id}', 'destroy')->name('ussd.destroy');
+            // Route::get('/students/create', 'create')->name('students.create');
         });
 
         Route::controller(ExaminationTypeController::class)->group(function () {

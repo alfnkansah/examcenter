@@ -12,9 +12,9 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">All Resources Table</h4>
+                    <h4 class="card-title">Student Table</h4>
                     <div class="table-responsive">
-                        @if ($resources->isEmpty())
+                        @if ($contacts->isEmpty())
                             <div class="alert alert-info">
                                 No record found
                             </div>
@@ -23,39 +23,30 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Exam Type</th>
-                                        <th>Level</th>
-                                        <th>Subject</th>
-                                        <th>Exam Year</th>
-                                        <th>Paper Type</th>
+                                        <th>Phone Number</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($resources as $resource)
+                                    @foreach ($contacts as $student)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $resource->examType->short_name }}</td>
-                                            <td>{{ $resource->level->name }}</td>
-                                            <td>{{ $resource->subject->name }}</td>
-                                            <td>{{ $resource->exam_year }}</td>
-                                            <td>{{ $resource->questionType->name }}</td>
-                                            <td>
-                                                {{-- <a href="{{ route('resoures.edit', $resource->id) }}"
-                                                    class="btn btn-sm btn-primary">Edit</a> --}}
+                                            <td>{{ $student->phone_number }}</td>
 
+                                            <td>
                                                 <a href="#" class="btn btn-sm bg-danger text-white delete-action-btn"
-                                                    data-action-id="{{ $resource->id }}" data-action-type="resoures">
+                                                    data-action-id="{{ $student->id }}" data-action-type="ussdContact">
                                                     Delete
                                                 </a>
 
-                                                <form id="delete-form-resoures-{{ $resource->id }}"
-                                                    action="{{ route('resoures.destroy', $resource->id) }}" method="POST"
+                                                <form id="delete-form-ussdContact-{{ $student->id }}"
+                                                    action="{{ route('ussd.destroy', $student->id) }}" method="POST"
                                                     style="display: none;">
                                                     @csrf
                                                     @method('DELETE')
                                                 </form>
                                             </td>
+
                                         </tr>
                                     @endforeach
                                 </tbody>

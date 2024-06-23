@@ -42,6 +42,12 @@
         {{-- <x-dropdown-link route="students.create" label="Add Pasco" /> --}}
     </x-dropdown>
 
+
+    <x-dropdown id="ussd_contact" label="USSD Contacts" icon="icon-layout">
+        <x-dropdown-link route="ussd.index" label="View All" />
+        {{-- <x-dropdown-link route="students.create" label="Add Pasco" /> --}}
+    </x-dropdown>
+
     <x-dropdown id="users" label="Admin Users" icon="icon-head">
         <x-dropdown-link route="users.index" label="View All" />
         {{-- <x-dropdown-link route="register" label="Add New" /> --}}

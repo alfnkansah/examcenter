@@ -10,7 +10,7 @@ class TakeStudentName extends State
 
     protected function beforeRendering(): void
     {
-        $this->menu->line("We want to know you more:")->line('Enter Your Full Name');
+        $this->menu->line("Kindly enter your first name")->line('(eg: Michael)');
     }
 
     protected function afterRendering(string $argument): void

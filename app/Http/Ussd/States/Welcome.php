@@ -2,13 +2,20 @@
 
 namespace App\Http\Ussd\States;
 
+use App\Services\UssdService;
+use Illuminate\Support\Facades\Log;
 use Sparors\Ussd\State;
 
 class Welcome extends State
 {
+
     protected $action = self::INPUT;
     protected function beforeRendering(): void
     {
+        $phoneNumber = $this->record->phoneNumber;
+
+        $message = (new UssdService)->saveContact($phoneNumber);
+
         $this->menu->line('Welcome to ExamCenter.com.gh!')
             // ->line('We provide a platform to access educational resources and information.')
             ->lineBreak()
