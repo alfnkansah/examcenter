@@ -17,8 +17,7 @@ class SelectSubjectType extends State
         $selectedExamType = ExamType::find($this->record->get('selectedExamType'));
         if ($selectedExamType) {
             if ($selectedExamType->programs()->exists()) {
-                $this->menu->line('Please choose an option:')
-                    // ->line('We provide a platform to access educational resources and information.')
+                $this->menu->line('Choose Core/Elective')
                     ->lineBreak()
                     ->listing([
                         'Core Subjects',
@@ -26,7 +25,6 @@ class SelectSubjectType extends State
                     ]);
             } else {
                 $this->menu->line('Please choose an option:')
-                    // ->line('We provide a platform to access educational resources and information.')
                     ->lineBreak()
                     ->listing([
                         'Core Subjects'
@@ -48,7 +46,6 @@ class SelectSubjectType extends State
             $this->record->set('subjectType', 'elective');
             $subjectType = 'elective';
         }
-        Log::info($subjectType);
         $this->decision->custom(function ($argument) {
             return is_int((int) $argument);
         }, ProgramsOrSubjectAction::class);

@@ -5,6 +5,8 @@ namespace App\Http\Ussd\Actions;
 use App\Helpers\SmsHelper;
 use App\Http\Ussd\States\ShowFinalDownloadMessage;
 use App\Models\StudentResource;
+use App\Services\TinyUrlService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Sparors\Ussd\Action;
 
@@ -17,11 +19,14 @@ class SendUssdSMS extends Action
         $student = $studentResource->student;
 
         $url = URL::signedRoute('verify-token', ['token' => $studentResource->download_token]);
+        $tinyUrlService = app(TinyUrlService::class);
+
+        $shortenedLink = $tinyUrlService->shortenUrl($url);
 
         // Construct custom message with the URL
-        $customMessage = "You have requested access to download a resource from " . env('APP_NAME') . ". Please find the download link below:" . "\n\n" . $url . "\n\nThis link will expire in 30 minutes. Please make sure to download the resource within this time frame. \n Thank you for using our service.";
-        $sendLink = SmsHelper::sendSms($student, $customMessage);
+        $customMessage = "Thank you for using ExamCenter!\n\nTap on the link to download " . $this->record->get('resource_name') . "\n\n" . $shortenedLink . "\n\nThis link expires in 30 mins.";
 
+        $sendLink = SmsHelper::sendSms($student, $customMessage);
         if ($sendLink->successful()) {
             $responseBody = $sendLink->json();
             if ($responseBody['status'] === 'ACCEPTED') {

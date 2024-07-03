@@ -19,9 +19,18 @@
             <div class="row mb-50">
 
                 <form class="forms-sample" id="filterForm">
-
                     @csrf
                     <div class="row">
+                        <div class="form-group col-sm-3 col-6">
+                            <label for="exam">Subject Category</label>
+                            <select name="category" id="category" class="form-control">
+                                <option value="">Select to filter</option>
+                                <option value="core">Core Subjects</option>
+                                <option value="elective">Elective Subjects</option>
+                            </select>
+
+                        </div>
+
                         <input type="hidden" value="{{ $id }}" name="category_id" id="category_id">
                         <div class="form-group col-sm-3 col-6">
                             <label for="exam_year">Select Year</label>
@@ -44,7 +53,6 @@
                                 <option value="">Select to filter</option>
                                 <option value="core">Core Subjects</option>
                                 <option value="elective">Elective Subjects</option>
-
                             </select>
 
                         </div>

@@ -13,7 +13,8 @@ class ShowProgramScreen extends State
     protected function beforeRendering(): void
     {
         // Display the options to the user
-        $this->menu->line('Select an option:')
+        $this->menu->line('Select Your Program:')
+            ->lineBreak()
             ->listing($this->record->get('programOptions'));
     }
 

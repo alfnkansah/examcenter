@@ -20,6 +20,7 @@ class PreviewDownLoadRequest extends State
             $this->menu->text('Sorry: we do not have materials available now, kindly try again next time');
         }
 
+        $this->record->set('resource_name', $resource->resource->subject->name . '-' . $resource->resource->exam_year . '-' . $resource->resource->questionType->name);
         $this->menu->line('Your have requested to download')
             ->line($resource->resource->subject->name . '-' . $resource->resource->exam_year . '-' . $resource->resource->questionType->name)
             ->line('Please confirm your choice:')

@@ -11,7 +11,8 @@ class ShowLibraryScreen extends State
 
     protected function beforeRendering(): void
     {
-        $this->menu->line('Kindly select an option')
+        $this->menu->line('Select Examination')
+            ->lineBreak()
             ->listing($this->record->categoriesListingOptions);
     }
 

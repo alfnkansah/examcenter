@@ -52,7 +52,6 @@ class StudentResourceRequest
 
     public function notNewStudent($request, $student)
     {
-        Log::info($request);
         // Generate download token and set expiration date
         $downloadToken = Str::random(40);
         $expirationDate = Carbon::now()->addMinutes(30);
@@ -67,5 +66,4 @@ class StudentResourceRequest
 
         return $studentResource;
     }
-    
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\USSD;
 
 use App\Http\Controllers\Controller;
+use App\Http\Ussd\States\PascoScreen;
 use App\Http\Ussd\States\Welcome;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -25,7 +26,7 @@ class UssdMachineController extends Controller
                 'network' => $request['NETWORK'],
                 'session_id' => $request['SESSIONID'],
             ])
-            ->setInitialState(Welcome::class)
+            ->setInitialState(PascoScreen::class)
             ->setResponse(function (string $message, string $action) use ($request) {
                 return [
                     'USERID' => $request['USERID'],

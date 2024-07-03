@@ -32,7 +32,10 @@ class PascoScreen extends State
         $this->record->set('examTypeMap', $examTypeMap);
 
         // Display the menu to the user
-        $this->menu->line('Select your examination type:')
+        $this->menu->line('Download Free PASSCO, Mock Papers,etc')
+            ->lineBreak()
+            ->line('Choose Level')
+            ->lineBreak()
             ->listing($listingOptions);
     }
 

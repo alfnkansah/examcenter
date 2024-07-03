@@ -13,7 +13,8 @@ class ShowSubjectScreen extends State
     protected function beforeRendering(): void
     {
         // Display the options to the user
-        $this->menu->line('Select an option:')
+        $this->menu->line('Select Subject:')
+            ->lineBreak()
             ->listing($this->record->get('subjectOptions'));
     }
 

@@ -12,6 +12,7 @@ class ShowResourceScreen extends State
     protected function beforeRendering(): void
     {
         $this->menu->line('Kindly select a resource')
+            ->lineBreak()
             ->listing($this->record->resourcesListingOptions);
     }
 
