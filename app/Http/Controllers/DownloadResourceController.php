@@ -115,12 +115,14 @@ class DownloadResourceController extends Controller
         }
     }
 
-
+    public function ResendLink(Request $request)
+    {
+    }
     public function smsRequestSent(Request $request)
     {
         $studentResource = StudentResource::findOrFail($request->resource_id);
 
-        $studentResource->expires_at = now();
+        $studentResource->expires_at = Carbon::now()->addMinutes(30);
         $studentResource->save();
 
         $student = $studentResource->student;
