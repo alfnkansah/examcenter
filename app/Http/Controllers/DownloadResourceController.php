@@ -120,6 +120,9 @@ class DownloadResourceController extends Controller
     {
         $studentResource = StudentResource::findOrFail($request->resource_id);
 
+        $studentResource->expires_at = now();
+        $studentResource->save();
+
         $student = $studentResource->student;
 
         // Generate URL with token
