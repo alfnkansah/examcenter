@@ -39,6 +39,7 @@
                                 @if ($subjects->isEmpty())
                                     <option value="">No Subjects Available</option>
                                 @else
+                                    <option value="">Select Subject</option>
                                     @foreach ($subjects as $subject)
                                         <option value="{{ $subject->id }}"
                                             {{ old('subject_id') == $subject->id ? 'selected' : '' }}>
