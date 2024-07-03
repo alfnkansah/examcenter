@@ -8,6 +8,7 @@ use App\Models\ResourceAnswer;
 use App\Models\Student;
 use App\Models\StudentResource;
 use App\Services\StudentResourceRequest;
+use App\Services\TinyUrlService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\URL;
@@ -124,9 +125,12 @@ class DownloadResourceController extends Controller
         // Generate URL with token
         $url = URL::signedRoute('verify-token', ['token' => $studentResource->download_token]);
 
-        // Construct custom message with the URL
-        $customMessage = "You have requested access to download a resource from " . env('APP_NAME') . ". Please find the download link below:" . "\n\n" . $url . "\n\nThis link will expire in 30 minutes. Please make sure to download the resource within this time frame. \n Thank you for using our service.";
+        $tinyUrlService = app(TinyUrlService::class);
 
+        $shortenedLink = $tinyUrlService->shortenUrl($url);
+
+        // Construct custom message with the URL
+        $customMessage = "Thank you for using ExamCenter!\n\nTap on the link to download resource\n\n" . $shortenedLink . "\n\nThis link expires in 30 mins.";
         // Send SMS
         $sendLink = SmsHelper::sendSms($student, $customMessage);
         if ($sendLink->successful()) {

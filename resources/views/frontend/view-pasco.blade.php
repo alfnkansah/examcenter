@@ -31,6 +31,24 @@
 
                         </div>
 
+                        <div class="form-group col-sm-3 col-6 subject_sort">
+                            <label for="subject_id">Select Subject</label>
+                            <input type="text" id="select-search" placeholder="Search Subject..."
+                                class="form-control">
+                            <select name="subject_id" id="subject_id" size="5" class="form-control">
+                                @if ($subjects->isEmpty())
+                                    <option value="">No Subjects Available</option>
+                                @else
+                                    @foreach ($subjects as $subject)
+                                        <option value="{{ $subject->id }}"
+                                            {{ old('subject_id') == $subject->id ? 'selected' : '' }}>
+                                            {{ $subject->name }}
+                                        </option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+
                         <input type="hidden" value="{{ $id }}" name="category_id" id="category_id">
                         <div class="form-group col-sm-3 col-6">
                             <label for="exam_year">Select Year</label>
@@ -46,37 +64,6 @@
                             </select>
 
                         </div>
-
-                        <div class="form-group col-sm-3 col-6">
-                            <label for="exam">Subject Category</label>
-                            <select name="category" id="category" class="form-control">
-                                <option value="">Select to filter</option>
-                                <option value="core">Core Subjects</option>
-                                <option value="elective">Elective Subjects</option>
-                            </select>
-
-                        </div>
-
-                        <div class="form-group col-sm-3 col-6">
-                            <label for="exam">Select Subject</label>
-                            <select name="subject_id" id="subject_id" class="form-control">
-                                <option value="">Select A Subject</option>
-                                @if ($subjects->isEmpty())
-                                    <option value="">No Subjects Available</option>
-                                @else
-                                    @foreach ($subjects as $subject)
-                                        <option value="{{ $subject->id }}"
-                                            {{ old('subject_id') == $subject->id ? 'selected' : '' }}>
-                                            {{ $subject->name }}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
-
-                        </div>
-
-
-
                     </div>
                     <br>
 
@@ -101,6 +88,23 @@
     <!-- category area end -->
 
 
+    <style>
+        #select-search {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #subject_id {
+            display: none;
+            z-index: 1;
+            box-sizing: border-box;
+        }
+
+        #subject_id.show {
+            display: block;
+            /* Show the select box when needed */
+        }
+    </style>
 
     @push('scripts')
         <script>
@@ -171,6 +175,34 @@
 
             // Fetch lectures when the page loads
             fetchResources();
+        </script>
+
+        <script>
+            document.getElementById('select-search').addEventListener('click', function() {
+                document.getElementById('subject_id').classList.toggle('show');
+            });
+
+            document.getElementById('select-search').addEventListener('input', function() {
+                var filter = this.value.toLowerCase();
+                var options = document.getElementById('subject_id').options;
+
+                for (var i = 0; i < options.length; i++) {
+                    var optionText = options[i].text.toLowerCase();
+                    options[i].style.display = optionText.includes(filter) ? '' : 'none';
+                }
+            });
+
+            document.getElementById('subject_id').addEventListener('change', function() {
+                document.getElementById('select-search').value = this.options[this.selectedIndex].text;
+                this.classList.remove('show');
+            });
+
+            document.addEventListener('click', function(event) {
+                var isClickInside = document.querySelector('.subject_sort').contains(event.target);
+                if (!isClickInside) {
+                    document.getElementById('subject_id').classList.remove('show');
+                }
+            });
         </script>
     @endpush
 

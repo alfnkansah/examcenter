@@ -23,6 +23,7 @@ class PreviewDownLoadRequest extends State
         $this->record->set('resource_name', $resource->resource->subject->name . '-' . $resource->resource->exam_year . '-' . $resource->resource->questionType->name);
         $this->menu->line('Your have requested to download')
             ->line($resource->resource->subject->name . '-' . $resource->resource->exam_year . '-' . $resource->resource->questionType->name)
+            ->lineBreak()
             ->line('Please confirm your choice:')
             ->listing([
                 'Confirm',
