@@ -10,8 +10,9 @@ class UssdService
 {
     public function getAllContacts()
     {
-        return USSDContact::all();
+        return USSDContact::orderBy('created_at')->get();
     }
+
 
 
     public function saveContact($phoneNumber)
