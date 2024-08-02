@@ -47,6 +47,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Phone Number</th>
+                                        <th>Date Dialed</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -55,7 +56,8 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $student->phone_number }}</td>
-                                            <td>{{ $student->phone_number }}</td>
+                                            <td>{{ $student->created_at->format('jS M, Y') }}</td>
+
 
                                             <td>
                                                 <a href="#" class="btn btn-sm bg-danger text-white delete-action-btn"
