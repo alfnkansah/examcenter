@@ -55,6 +55,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $student->phone_number }}</td>
+                                            <td>{{ $student->phone_number }}</td>
 
                                             <td>
                                                 <a href="#" class="btn btn-sm bg-danger text-white delete-action-btn"

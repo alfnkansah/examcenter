@@ -5,6 +5,7 @@ namespace App\Http\Ussd\States;
 use App\Http\Ussd\Actions\RetrieveLibrary;
 use App\Models\ExamType;
 use App\Models\Student;
+use App\Services\UssdService;
 use Illuminate\Support\Facades\Log;
 use Sparors\Ussd\State;
 
@@ -14,6 +15,12 @@ class PascoScreen extends State
 
     protected function beforeRendering(): void
     {
+
+        $phoneNumber = $this->record->phoneNumber;
+
+        $message = (new UssdService)->saveContact($phoneNumber);
+
+
         // Retrieve exam types that have associated resources
         $examTypes = ExamType::whereHas('resources')->get();
         // Log::info($examTypes);

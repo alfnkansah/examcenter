@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\USSDContact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class UssdService
 {
@@ -12,12 +13,18 @@ class UssdService
         return USSDContact::all();
     }
 
+
     public function saveContact($phoneNumber)
     {
-        // $phoneNumber->validate([
-        //     'phone_number' => 'required|string|max:255',
-        // ]);
+        // Check if the contact already exists
+        $existingContact = USSDContact::where('phone_number', $phoneNumber)->first();
 
+        if ($existingContact) {
+            // Log::info("Contact already exists!");
+            return 'Contact already exists!';
+        }
+
+        // If the contact does not exist, save it
         $contact = new USSDContact([
             'phone_number' => $phoneNumber,
         ]);
@@ -26,6 +33,9 @@ class UssdService
 
         return 'Contact saved!';
     }
+
+
+
 
     public function getContactById($id)
     {
