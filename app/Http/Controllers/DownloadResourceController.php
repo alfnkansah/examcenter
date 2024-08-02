@@ -129,8 +129,11 @@ class DownloadResourceController extends Controller
 
         // Generate URL with token
         $url = URL::signedRoute('verify-token', ['token' => $studentResource->download_token]);
-
         $tinyUrlService = app(TinyUrlService::class);
+        $shortenedUrl = $tinyUrlService->shortenUrls($url);
+        Log::info($url);
+        Log::info($shortenedUrl);
+
 
         $shortenedLink = $tinyUrlService->shortenUrl($url);
 

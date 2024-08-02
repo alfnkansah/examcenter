@@ -4,6 +4,7 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 
 class TinyUrlService
 {
@@ -23,5 +24,14 @@ class TinyUrlService
         ]);
 
         return $response->getBody()->getContents();
+    }
+
+    function shortenUrls($originalUrl)
+    {
+        $response = Http::post(url('/shorten'), [
+            'url' => $originalUrl,
+        ]);
+
+        return $response->json()['short_url'];
     }
 }

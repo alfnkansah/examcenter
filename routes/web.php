@@ -13,6 +13,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\HomePagesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\ShortUrlController;
 use App\Http\Controllers\USSD\UssdMachineController;
 use App\Http\Controllers\USSDContactController;
 use Illuminate\Support\Facades\Route;
@@ -80,6 +81,9 @@ Route::middleware(['visitor'])->group(function () {
         //view answer routes
         Route::get('/view-answer/{id}', 'viewAnswerStudent')->name('view-answer');
     });
+
+    Route::post('/shorten', [ShortUrlController::class, 'store']);
+    // Route::get('/{code}', [ShortUrlController::class, 'show']);
 });
 
 Route::middleware('auth', 'verified')->group(function () {
