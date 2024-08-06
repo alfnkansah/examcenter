@@ -20,9 +20,9 @@ class SendUssdSMS extends Action
 
         $url = URL::signedRoute('verify-token', ['token' => $studentResource->download_token]);
         $tinyUrlService = app(TinyUrlService::class);
-        $shortenedUrl = $tinyUrlService->shortenUrls($url);
-        Log::info($url);
-        Log::info($shortenedUrl);
+        // $shortenedUrl = $tinyUrlService->shortenUrls($url);
+        // Log::info($url);
+        // Log::info($shortenedUrl);
 
         $shortenedLink = $tinyUrlService->shortenUrl($url);
 
