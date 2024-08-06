@@ -130,15 +130,15 @@ class DownloadResourceController extends Controller
         // Generate URL with token
         $url = URL::signedRoute('verify-token', ['token' => $studentResource->download_token]);
         $tinyUrlService = app(TinyUrlService::class);
-        $shortenedUrl = $tinyUrlService->shortenUrls($url);
+        // $shortenedUrl = $tinyUrlService->shortenUrls($url);
         // Log::info($url);
         // Log::info($shortenedUrl);
 
 
-        // $shortenedLink = $tinyUrlService->shortenUrl($url);
+        $shortenedLink = $tinyUrlService->shortenUrl($url);
 
         // Construct custom message with the URL
-        $customMessage = "Thank you for using ExamCenter!\n\nTap on the link to download resource\n\n" . $shortenedUrl . "\n\nThis link expires in 30 mins.";
+        $customMessage = "Thank you for using ExamCenter!\n\nTap on the link to download resource\n\n" . $shortenedLink . "\n\nThis link expires in 30 mins.";
         // Send SMS
         $sendLink = SmsHelper::sendSms($student, $customMessage);
         if ($sendLink->successful()) {
